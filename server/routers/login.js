@@ -5,7 +5,7 @@ const models = require('../models');
 router.get('/login/auth/kakao',
 	passport.authenticate('kakao', {
 		scope:
-			['profile_nickname', 'account_email']
+			['profile_nickname', 'account_email', '	profile_image']
 	}
 	));
 

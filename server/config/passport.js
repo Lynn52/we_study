@@ -19,7 +19,8 @@ passport.use(new KakaoStrategy({
         console.log(profile)
         const user = {
             email: profile._json.kakao_account.email,
-            nickName: profile.displayName
+            nickName: profile.displayName,
+            profileImage: profile._json.properties.profile_image
         }
         done(null, user);
     }
@@ -32,10 +33,13 @@ passport.serializeUser(function (user, done) {
         }
     }).then(data => {
         let userId = ''
+        
         if (data === null) {
             models.User.create({
                 email: user.email,
-                nickName: user.nickName
+                nickName: user.nickName,
+                downloadPath: user.profileImage
+
             }).then(data => {
                 console.log(data.dataValues.id)
                 userId = data.dataValues.id;
